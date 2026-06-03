@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        *{font-family: Arial, Helvetica, sans-serif;}
+        .form-wrapper{display: grid; place-items: center; border: 2px solid black; border-radius: 12px; width: 500px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,.08);}
+        label{display: block;margin-bottom: -9px;}
+        input[type="text"], input[type="email"],input[type="date"],input[type="password"]{width: 100%; border: none; border-bottom: 2px solid #ccc; padding: 5px 0; background: transparent; font-size: 16px;}
+         #submitbtn{ width: 100%; display: block; margin-bottom: 30px; background: #2563eb; color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 16px; transition: background 0.2 ease; }
+    </style>
+</head>
+<body>
+    <div class="form-wrapper">
+    <h1>Resigtration Form</h1>
+    <hr>
+    <form id="registerForm" name="myform" action="/action_page.php" onsubmit="return validateForm()" method="post">
+        <label for="username">Username: </label><br>
+        <input type="text" id="username"><br><br>
+        <label for="password">Password: </label><br>
+        <input type="password" id="password"><br>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password"><br><br>
+    
+        <label for="email">Email:</label><br>
+        <input type="email" id="userEmail" placeholder="youremail@email.com"><br><br>
+    
+        <label for="DOB">Date of Birth:</label><br>
+        <input type="date" id="doB"><br> <br>
+    
+        <input type="submit" value="Register" id="submitbtn">
+    
+    </form>
+    </div>
+<script>  
+    function validateForm() {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const email = document.getElementById('userEmail').value.trim();
+
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (username === "") {
+        alert("Please provide a username");
+        return false;
+    }
+
+    if (password.length < 8) {
+        alert("Password needs to be at least 8 characters");
+        return false;
+    }
+
+    if (!specialCharRegex.test(password)) {
+        alert("Password needs at least one special character");
+        return false;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return false;
+    }
+
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid email");
+        return false;
+    }
+
+    alert("You have been registered successfully!")
+    return true;
+}
+</script>
+</body>
+</html>
